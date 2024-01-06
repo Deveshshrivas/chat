@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "base",
 
     'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
+    
     
 ]
 
