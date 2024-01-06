@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 ROOT_URLCONF = "mychat.urls"
@@ -89,6 +91,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+WHITENOISE_USE_FINDERS = True
 
 
 # Password validation
@@ -121,7 +124,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-WHITENOISE_USE_FINDERS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
