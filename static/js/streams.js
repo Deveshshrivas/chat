@@ -118,11 +118,10 @@ let createMember = async()=>{
 }
 
 
-let getMember = async()=>{
-  let response = await fetch(`/get_member/?UID=${user.uid}&room_name${CHANNEL}`)
+let getMember = async(user) => {
+  let response = await fetch(`/get_member/?UID=${user.uid}&room_name=${CHANNEL}`)
   let member = await response.json()
-  return member()
-
+  return member
 }
 
 
