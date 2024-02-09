@@ -87,10 +87,22 @@ WSGI_APPLICATION = "mychat.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'ChatDB',
+        'CLIENT': {
+            'host': 'mongodb+srv://deveshshrivas060:Gq7mmeGubT8twoD8@cluster0.mongodb.net/ChatDB?retryWrites=true&w=majority',
+            'username': 'deveshshrivas060',
+            'password': 'Gq7mmeGubT8twoD8',
+            'authMechanism': 'SCRAM-SHA-1'
+        }
     }
 }
 WHITENOISE_USE_FINDERS = True
