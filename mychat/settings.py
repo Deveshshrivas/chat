@@ -9,7 +9,14 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+os.environ['DATABASE_URL'] = 'mongodb+srv://deveshshrivas060:Gq7mmeGubT8twoD8@cluster0.w8nmlpu.mongodb.net/ChatDB?retryWrites=true&w=majority&ssl=true'
 from pathlib import Path
 import django_heroku
 import dj_database_url
@@ -17,18 +24,13 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-iz)lu!69b#vt$0*np6x))5!%2o+kk7e)o*883u!-rfg=iq1bn_"
+SECRET_KEY = os.getenv('SECRET_KEY', "django-insecure-iz)lu!69b#vt$0*np6x))5!%2o+kk7e)o*883u!-rfg=iq1bn_")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -41,26 +43,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "base",
-
     'whitenoise.runserver_nostatic',
-    
-    
 ]
 
 MIDDLEWARE = [
-    'django.middleware.gzip.GZipMiddleware',
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
-
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = "mychat.urls"
@@ -83,34 +76,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "mychat.wsgi.application"
 
-
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'ENFORCE_SCHEMA': False,
         'NAME': 'ChatDB',
         'CLIENT': {
-            'host': 'mongodb+srv://deveshshrivas060:Gq7mmeGubT8twoD8@cluster0.mongodb.net/ChatDB?retryWrites=true&w=majority',
-            'username': 'deveshshrivas060',
-            'password': 'Gq7mmeGubT8twoD8',
-            'authMechanism': 'SCRAM-SHA-1'
-        }
+           'host': 'mongodb+srv://deveshshrivas060:Gq7mmeGubT8twoD8@cluster0.w8nmlpu.mongodb.net/?retryWrites=true&w=majority',
+            'authMechanism': 'SCRAM-SHA-1',
+            'authSource': 'admin',
+            # 'tls': False,
+            'ssl': False,
+        },
     }
 }
+
 WHITENOISE_USE_FINDERS = True
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -126,35 +110,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
+
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-# 192.168.1.2
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
