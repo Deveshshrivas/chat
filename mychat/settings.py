@@ -108,7 +108,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'mychat', 'static'),
+    os.path.join(BASE_DIR, 'mychat/static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
