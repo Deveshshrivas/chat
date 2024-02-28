@@ -148,3 +148,4 @@ webencodings==0.5.1
 websocket-client==1.7.0
 whitenoise==6.6.0
 djongo
+torch==2.2.0
